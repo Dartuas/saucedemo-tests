@@ -1,5 +1,7 @@
 import { expect } from '@wdio/globals'
 import LoginPage from '../pageobjects/login.page.js'
+import InventoryPage from '../pageobjects/inventory.page.js';
+
 describe('Login', () => {
 
     it('TC1 - Valid Login', async () => {
@@ -22,6 +24,14 @@ describe('Login', () => {
         const error = await $('.error-message-container h3');
         await expect(error).toBeDisplayed();
         await expect(error).toHaveText('Epic sadface: Sorry, this user has been locked out.');
+
+    })
+
+    it('TC4 - Logout', async () => {
+        await LoginPage.open();
+        await LoginPage.login('standard_user', 'secret_sauce');
+        await InventoryPage.logout();
+        await expect(browser).toHaveUrl('https://www.saucedemo.com/');
 
     })
 
