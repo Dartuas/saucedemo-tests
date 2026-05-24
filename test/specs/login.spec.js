@@ -1,6 +1,7 @@
 import { expect } from '@wdio/globals'
 import LoginPage from '../pageobjects/login.page.js'
-import InventoryPage from '../pageobjects/inventory.page.js';
+import InventoryPage from '../pageobjects/inventory.page.js'
+import CartPage from '../pageobjects/cart.page.js'
 
 describe('Login', () => {
 
@@ -34,5 +35,17 @@ describe('Login', () => {
         await expect(browser).toHaveUrl('https://www.saucedemo.com/');
 
     })
+
+    it('TC5 - Saving the card after logout ', async () => {
+        await LoginPage.open();
+        await LoginPage.login('standard_user', 'secret_sauce');
+        await expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');
+        await CartPage.addToCartButton.click();
+        await InventoryPage.logout();
+        await LoginPage.login('standard_user', 'secret_sauce');
+        await CartPage.cartLink.click();
+
+    })
+
 
 })
