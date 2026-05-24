@@ -2,10 +2,27 @@ import { expect } from '@wdio/globals'
 import LoginPage from '../pageobjects/login.page.js'
 describe('Login', () => {
 
-    it('TC#1 - Valid Login', async () => {
+    it('TC1 - Valid Login', async () => {
         await LoginPage.open();
         await LoginPage.login('standard_user', 'secret_sauce');
         await expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');
+    })
+
+    it('TC2 - Login with invalid password', async () => {
+        await LoginPage.open();
+        await LoginPage.login('standard_user', 'wrong_password');
+        const error = await $('.error-message-container h3');
+        await expect(error).toBeDisplayed();
+        await expect(error).toHaveText('Epic sadface: Username and password do not match any user in this service');
+    });
+
+    it('TC3 - Login with locked out test login', async () => {
+        await LoginPage.open();
+        await LoginPage.login('locked_out_user', 'secret_sauce');
+        const error = await $('.error-message-container h3');
+        await expect(error).toBeDisplayed();
+        await expect(error).toHaveText('Epic sadface: Sorry, this user has been locked out.');
+
     })
 
 })
