@@ -25,6 +25,14 @@ describe('Checkout', () => {
         await expect($('.shopping_cart_badge')).not.toBeDisplayed();
 
     })
+    it('TC9 - Checkout without products', async () => {
+        await LoginPage.open();
+        await LoginPage.login('standard_user', 'secret_sauce');
+        await CartPage.cartLink.click();
+        await $('[data-test="checkout"]').click();
+        // Перевіряємо що нас НЕ пустили далі
+        await expect(browser).toHaveUrl('https://www.saucedemo.com/cart.html');
+    });
 
 
 })
