@@ -6,6 +6,10 @@ class CheckoutPage extends Page {
     get postalCodeField() { return $('[data-test="postalCode"]'); }
     get continueButton()  { return $('[data-test="continue"]'); }
     get finishButton()    { return $('[data-test="finish"]'); }
+    get checkoutButton()  { return $('[data-test="checkout"]'); }
+    get backHomeButton()  { return $('[data-test="back-to-products"]'); }
+    get successMessage()  { return $('[data-test="complete-header"]'); }
+    get cartBadge()       { return $('.shopping_cart_badge'); }
 
     async fillForm(firstName, lastName, postalCode) {
         await this.firstNameField.setValue(firstName);
