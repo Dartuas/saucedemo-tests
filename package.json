@@ -1,6 +1,5 @@
 {
   "name": "test-demo",
-  "type": "module",
   "devDependencies": {
     "@wdio/allure-reporter": "^9.27.1",
     "@wdio/cli": "^9.27.1",

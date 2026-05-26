@@ -1,30 +1,29 @@
-import { expect } from '@wdio/globals'
-import LoginPage from '../pageobjects/login.page.js'
-import ProductsPage from '../pageobjects/products.page.js'
+import loginPage from '../pageobjects/login.page.js'
+import productsPage from '../pageobjects/products.page.js'
 
 describe('TC6 - Sorting', () => {
     beforeEach(async () => {
-        await LoginPage.open();
-        await LoginPage.login('standard_user', 'secret_sauce');
+        await loginPage.open();
+        await loginPage.login('standard_user', 'secret_sauce');
     });
 
     it('Sort by Name (A to Z)', async () => {
-        await ProductsPage.sortBy('az');
-        await expect(ProductsPage.sortDropdown).toHaveValue('az');
+        await productsPage.sortBy('az');
+        await expect(productsPage.sortDropdown).toHaveValue('az');
     });
 
     it('Sort by Name (Z to A)', async () => {
-        await ProductsPage.sortBy('za');
-        await expect(ProductsPage.sortDropdown).toHaveValue('za');
+        await productsPage.sortBy('za');
+        await expect(productsPage.sortDropdown).toHaveValue('za');
     });
 
     it('Sort by Price (low to high)', async () => {
-        await ProductsPage.sortBy('lohi');
-        await expect(ProductsPage.sortDropdown).toHaveValue('lohi');
+        await productsPage.sortBy('lohi');
+        await expect(productsPage.sortDropdown).toHaveValue('lohi');
     });
 
     it('Sort by Price (high to low)', async () => {
-        await ProductsPage.sortBy('hilo');
-        await expect(ProductsPage.sortDropdown).toHaveValue('hilo');
+        await productsPage.sortBy('hilo');
+        await expect(productsPage.sortDropdown).toHaveValue('hilo');
     });
 })

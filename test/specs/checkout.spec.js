@@ -1,21 +1,20 @@
-import { expect } from '@wdio/globals'
-import LoginPage from '../pageobjects/login.page.js'
-import InventoryPage from '../pageobjects/inventory.page.js'
-import CartPage from '../pageobjects/cart.page.js'
-import CheckoutPage from '../pageobjects/checkout.page.js'
+import loginPage from '../pageobjects/login.page.js'
+import inventoryPage from '../pageobjects/inventory.page.js'
+import cartPage from '../pageobjects/cart.page.js'
+import checkoutPage from '../pageobjects/checkout.page.js'
 
 describe('Checkout', () => {
 
 
     it('TC8 - Valid Checkout ', async () => {
-        await LoginPage.open();
-        await LoginPage.login('standard_user', 'secret_sauce');
+        await loginPage.open();
+        await loginPage.login('standard_user', 'secret_sauce');
         await expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');
-        await CartPage.addToCartButton.click();
-        await CartPage.cartLink.click();
+        await cartPage.addToCartButton.click();
+        await cartPage.cartLink.click();
         await $('[data-test="checkout"]').click();
-        await CheckoutPage.fillForm('Oleksandr', 'Saksonik', '12345');
-        await CheckoutPage.finishButton.click();
+        await checkoutPage.fillForm('Oleksandr', 'Saksonik', '12345');
+        await checkoutPage.finishButton.click();
         const successMessage = await $('[data-test="complete-header"]');
         await expect(successMessage).toHaveText('Thank you for your order!');
 
@@ -26,11 +25,10 @@ describe('Checkout', () => {
 
     })
     it('TC9 - Checkout without products', async () => {
-        await LoginPage.open();
-        await LoginPage.login('standard_user', 'secret_sauce');
-        await CartPage.cartLink.click();
+        await loginPage.open();
+        await loginPage.login('standard_user', 'secret_sauce');
+        await cartPage.cartLink.click();
         await $('[data-test="checkout"]').click();
-        // Перевіряємо що нас НЕ пустили далі
         await expect(browser).toHaveUrl('https://www.saucedemo.com/cart.html');
     });
 
