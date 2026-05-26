@@ -7,23 +7,12 @@ describe('TC6 - Sorting', () => {
         await loginPage.login('standard_user', 'secret_sauce');
     });
 
-    it('Sort by Name (A to Z)', async () => {
-        await productsPage.sortBy('az');
-        await expect(productsPage.sortDropdown).toHaveValue('az');
-    });
+    const sortOptions = ['az', 'za', 'lohi', 'hilo'];
 
-    it('Sort by Name (Z to A)', async () => {
-        await productsPage.sortBy('za');
-        await expect(productsPage.sortDropdown).toHaveValue('za');
-    });
-
-    it('Sort by Price (low to high)', async () => {
-        await productsPage.sortBy('lohi');
-        await expect(productsPage.sortDropdown).toHaveValue('lohi');
-    });
-
-    it('Sort by Price (high to low)', async () => {
-        await productsPage.sortBy('hilo');
-        await expect(productsPage.sortDropdown).toHaveValue('hilo');
-    });
+    for (const option of sortOptions) {
+        it(`Sort by option: ${option}`, async () => {
+            await productsPage.sortBy(option);
+            await expect(productsPage.sortDropdown).toHaveValue(option);
+        });
+    }
 })

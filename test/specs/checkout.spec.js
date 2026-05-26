@@ -23,6 +23,9 @@ describe('Checkout', () => {
         await loginPage.login('standard_user', 'secret_sauce');
         await cartPage.cartLink.click();
         await checkoutPage.checkoutButton.click();
+        // BUG: System allows checkout with empty cart
+        // Expected: error message "Cart is empty"
+        // Actual: user is redirected to checkout form
         await expect(browser).toHaveUrl('https://www.saucedemo.com/cart.html');
     });
 
